@@ -1,7 +1,0 @@
-[Inputs]
-=inp_a[3:0]=
-=inp_b[3:0]=
-=sel[2:0]=
-[Outputs]
-=out_alu[3:0]=
-[BiDir]
