@@ -27,6 +27,9 @@
 --------------------------------------------------------------------------------
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
+USE IEEE.STD_LOGIC_ARITH.ALL;
+USE IEEE.STD_LOGIC_UNSIGNED.ALL;
+USE ieee.std_logic_textio.ALL;
  
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -87,8 +90,12 @@ BEGIN
       -- hold reset state for 100 ns.
       wait for 100 ns;	
 		t <= '0';
-		x <= '00111101101011100001010001111011'; --1,1 em decimal
-      y <= '00111101101011100001010001111011'; --1 em decimal
+		--conv_std_logic_vector(int valor , int tamanho);
+		x <= conv_std_logic_vector(1.2, 32);
+      y <= conv_std_logic_vector(1.2, 32);
+		
+		--x<= "00000000";
+
 		wait for 100 ns;	
       --wait for <clock>_period*10;
 
