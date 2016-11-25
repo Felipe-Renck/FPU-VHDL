@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer:
 --
--- Create Date:   01:31:27 11/25/2016
+-- Create Date:   17:05:43 11/25/2016
 -- Design Name:   
--- Module Name:   C:/Users/Felipe/Documents/Arquitetura de Computadores/FPU-VHDL/testBench.vhd
+-- Module Name:   C:/Users/Felipe/Documents/Arquitetura de Computadores/FPU-VHDL/testbench.vhd
 -- Project Name:  ProjIEEE
 -- Target Device:  
 -- Tool versions:  
@@ -14,31 +14,24 @@
 -- 
 -- Dependencies:
 -- 
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
---
--- Notes: 
--- This testbench has been automatically generated using types std_logic and
--- std_logic_vector for the ports of the unit under test.  Xilinx recommends
--- that these types always be used for the top-level I/O of a design in order
--- to guarantee that the testbench will bind correctly to the post-implementation 
--- simulation model.
---------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+--------------------------------------Testbench-----------------------------------
+-- Implementação de Somador e Sutrator em Ponto Flutuante de Precisão Simples
+-- Apenas um exemplo comportamental, não  representa a melhor forma de 
+--               implementação e controle do hardware gerado
+----------------------------------------------------------------------------------
 LIBRARY ieee;
-USE ieee.std_logic_1164.ALL;
-USE IEEE.STD_LOGIC_ARITH.ALL;
-USE IEEE.STD_LOGIC_UNSIGNED.ALL;
-USE ieee.std_logic_textio.ALL;
+use IEEE.STD_LOGIC_1164.ALL;
+use ieee.std_logic_unsigned.all;
  
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
 --USE ieee.numeric_std.ALL;
  
-ENTITY testBench IS
-END testBench;
+ENTITY testbench IS
+END testbench;
  
-ARCHITECTURE behavior OF testBench IS 
+ARCHITECTURE behavior OF testbench IS 
  
     -- Component Declaration for the Unit Under Test (UUT)
  
@@ -47,60 +40,60 @@ ARCHITECTURE behavior OF testBench IS
          x : IN  std_logic_vector(31 downto 0);
          y : IN  std_logic_vector(31 downto 0);
          t : IN  std_logic;
-         z : OUT  std_logic_vector(31 downto 0)
+         z : OUT  std_logic_vector(31 downto 0);
+         saidaSinal : OUT  std_logic;
+         saidaExpoente : OUT  std_logic_vector(7 downto 0);
+         saidaMantissa : OUT  std_logic_vector(22 downto 0)
         );
     END COMPONENT;
     
 
-   --Inputs
-   signal x : std_logic_vector(31 downto 0) := (others => '0');
-   signal y : std_logic_vector(31 downto 0) := (others => '0');
+   --Entradas já setadas
+	signal clk : std_logic := '0';
+	--Entrada x = 9.75
+   signal x : std_logic_vector(31 downto 0) := "01000001000111000000000000000000" ;
+	--Entrada y = 0.5625
+   signal y : std_logic_vector(31 downto 0) := "00111111000100000000000000000000" ;
    signal t : std_logic := '0';
 
- 	--Outputs
+ 	--Saídas 
    signal z : std_logic_vector(31 downto 0);
-   -- No clocks detected in port list. Replace <clock> below with 
-   -- appropriate port name 
+   signal saidaSinal : std_logic;
+   signal saidaExpoente : std_logic_vector(7 downto 0);
+   signal saidaMantissa : std_logic_vector(22 downto 0);
  
-   --constant clk_period : time := 100 ns;
+	--constante do período do clock
+   constant clk_period : time := 10 ns;
  
 BEGIN
  
-	-- Instantiate the Unit Under Test (UUT)
+	--Port map entre o component e os sinais 
    uut: projIEEE PORT MAP (
           x => x,
           y => y,
           t => t,
-          z => z
+          z => z,
+          saidaSinal => saidaSinal,
+          saidaExpoente => saidaExpoente,
+          saidaMantissa => saidaMantissa
         );
 
-   -- Clock process definitions
---   <clock>_process :process
---   begin
---		<clock> <= '0';
---		wait for <clock>_period/2;
---		<clock> <= '1';
---		wait for <clock>_period/2;
---   end process;
+   -- Gerencia o clock
+	process
+   begin
+		clk <= '0';
+		wait for clk_period/2;
+		clk <= '1';
+		wait for clk_period/2;
+   end process;
  
 
-   -- Stimulus process
+	--Process
    stim_proc: process
    begin		
-      -- hold reset state for 100 ns.
+      -- Espera e segura o estado por  100 ns.
       wait for 100 ns;	
-		t <= '0';
-		--conv_std_logic_vector(int valor , int tamanho);
-		x <= conv_std_logic_vector(1.2, 32);
-      y <= conv_std_logic_vector(1.2, 32);
-		
-		--x<= "00000000";
-
-		wait for 100 ns;	
-      --wait for <clock>_period*10;
-
-      -- insert stimulus here 
-
+      wait for clk_period*10;
       wait;
    end process;
 
