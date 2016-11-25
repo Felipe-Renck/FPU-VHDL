@@ -71,7 +71,7 @@ begin
 		end loop;
 
 		
-		--calcula a manticia
+		--calcula a mantissa
 		aux_mantica := (others => '0');
 		
 		
