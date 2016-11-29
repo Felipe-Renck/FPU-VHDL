@@ -24,16 +24,12 @@ LIBRARY ieee;
 use IEEE.STD_LOGIC_1164.ALL;
 use ieee.std_logic_unsigned.all;
  
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---USE ieee.numeric_std.ALL;
- 
 ENTITY testbench IS
 END testbench;
  
 ARCHITECTURE behavior OF testbench IS 
  
-    -- Component Declaration for the Unit Under Test (UUT)
+    -- Declaração do componente (UUT)
  
     COMPONENT projIEEE
     PORT(
