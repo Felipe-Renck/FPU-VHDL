@@ -91,9 +91,16 @@ BEGIN
 	--Process
    stim_proc: process
    begin		
-      -- Espera e segura o estado por  100 ns.
-      wait for 100 ns;	
+      -- Espera e segura o estado por  100 ns.	
       wait for clk_period*10;
+		t<= '1'; --Troca a operação para subtração
+		wait for clk_period*10;
+		--Troca os valores
+		x<="11000001000111000000000000000000"; --Entrada x = -9.75
+		y<="10111111000100000000000000000000";--Entrada y = -0.5625
+		t<='0';
+		wait for clk_period*10;
+		t<= '1';
       wait;
    end process;
 
